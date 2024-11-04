@@ -95,5 +95,6 @@ buttons.forEach(button => {
         } else {
             display.textContent = 'Error';
         }
+        }
     });
 });
