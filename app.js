@@ -1,3 +1,6 @@
+const buttons = document.querySelectorAll('button');
+const display = document.querySelector('#display');
+
 
 
 //math functions
@@ -19,10 +22,11 @@ function div(a,b){
 } 
 
 //define variables
-let firstNumber = 10
-let secondNumber = 5
-let operator = '+'
+let firstNumber = ''
+let secondNumber = ''
+let operator = ''
 
+// calculate function
 function operate (a, b, operator){
     if (operator === '+'){
         return add(a, b);
@@ -35,8 +39,34 @@ function operate (a, b, operator){
     }
 }
 
-console.log(operate(10, 7, operator));
-
-
-
-
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const value = button.value;
+        console.log(value);
+        
+        if (!isNaN(value) || value === '.') {
+            firstNumber += value;
+            display.textContent = firstNumber; 
+        } else if (value === 'clear') {
+            display.textContent = '';
+            firstNumber = '';
+            secondNumber = '';
+            operator = '';
+        } else if (value === '.') {
+            if (!firstNumber.includes('.')) {
+                firstNumber += value;
+                display.textContent = firstNumber;
+            }
+        } else if (value === 'sign') {
+            if (operator === '') {
+                if (firstNumber !== '') {
+                    firstNumber = firstNumber.startsWith('-') ? firstNumber.slice(1) : '-' + firstNumber;
+                    display.textContent = firstNumber;
+                }
+            } else if (secondNumber !== '') {
+                secondNumber = secondNumber.startsWith('-') ? secondNumber.slice(1) : '-' + secondNumber;
+                display.textContent = secondNumber
+        } else {console.log('operator');}
+    }
+});
+});
