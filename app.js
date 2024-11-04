@@ -43,21 +43,32 @@ buttons.forEach(button => {
     button.addEventListener('click', () => {
         const value = button.value;
         console.log(value);
-        
+
+        // Gérer l'affichage des nombres et du point décimal
         if (!isNaN(value) || value === '.') {
-            firstNumber += value;
-            display.textContent = firstNumber; 
-        } else if (value === 'clear') {
+            if (operator === '') {
+                // Ajoute au premier nombre
+                if (value !== '.' || !firstNumber.includes('.')) {
+                    firstNumber += value;
+                    display.textContent = firstNumber;
+                }
+            } else {
+                // Ajoute au second nombre
+                if (value !== '.' || !secondNumber.includes('.')) {
+                    secondNumber += value;
+                    display.textContent = secondNumber;
+                }
+            }
+        } 
+        // Gérer la réinitialisation
+        else if (value === 'clear') {
             display.textContent = '';
             firstNumber = '';
             secondNumber = '';
             operator = '';
-        } else if (value === '.') {
-            if (!firstNumber.includes('.')) {
-                firstNumber += value;
-                display.textContent = firstNumber;
-            }
-        } else if (value === 'sign') {
+        } 
+        // Gérer le changement de signe
+        else if (value === 'sign') {
             if (operator === '') {
                 if (firstNumber !== '') {
                     firstNumber = firstNumber.startsWith('-') ? firstNumber.slice(1) : '-' + firstNumber;
@@ -65,8 +76,17 @@ buttons.forEach(button => {
                 }
             } else if (secondNumber !== '') {
                 secondNumber = secondNumber.startsWith('-') ? secondNumber.slice(1) : '-' + secondNumber;
-                display.textContent = secondNumber
-        } else {console.log('operator');}
-    }
-});
+                display.textContent = secondNumber;
+            }
+        } 
+        // Gérer les opérateurs
+        else if (['+', '-', '*', '/'].includes(value)) {
+            if (firstNumber !== '') {
+                operator = value;
+                console.log('Operator set:', operator);
+            }
+        } else {
+            console.log('Unrecognized input');
+        }
+    });
 });
