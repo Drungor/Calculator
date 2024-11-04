@@ -92,9 +92,9 @@ buttons.forEach(button => {
                 firstNumber = result.toString();
                 secondNumber = '';
                 operator = '';
+            }
         } else {
             display.textContent = 'Error';
-        }
         }
     });
 });
