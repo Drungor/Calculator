@@ -41,8 +41,8 @@ function operate (a, b, operator){
 
 //avoid overflow
 function updateDisplay(value) {
-    if (value.length > 10) {
-        value = value.slice(0, 10); 
+    if (value.length > 8) {
+        value = value.slice(0, 8); 
     }
     display.textContent = value;
 }
@@ -55,16 +55,14 @@ buttons.forEach(button => {
         // Display number on screen
         if (!isNaN(value) || value === '.') {
             if (operator === '') {
-                // add to first number
                 if (value !== '.' || !firstNumber.includes('.')) {
                     firstNumber += value;
-                    display.textContent = firstNumber;
+                    updateDisplay(firstNumber);
                 }
             } else {
-                // add to second number
                 if (value !== '.' || !secondNumber.includes('.')) {
                     secondNumber += value;
-                    display.textContent = secondNumber;
+                    updateDisplay(secondNumber);
                 }
             }
         } 
