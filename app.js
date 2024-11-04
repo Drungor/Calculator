@@ -39,35 +39,43 @@ function operate (a, b, operator){
     }
 }
 
+//avoid overflow
+function updateDisplay(value) {
+    if (value.length > 10) {
+        value = value.slice(0, 10); 
+    }
+    display.textContent = value;
+}
+
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const value = button.value;
         console.log(value);
 
-        // Gérer l'affichage des nombres et du point décimal
+        // Display number on screen
         if (!isNaN(value) || value === '.') {
             if (operator === '') {
-                // Ajoute au premier nombre
+                // add to first number
                 if (value !== '.' || !firstNumber.includes('.')) {
                     firstNumber += value;
                     display.textContent = firstNumber;
                 }
             } else {
-                // Ajoute au second nombre
+                // add to second number
                 if (value !== '.' || !secondNumber.includes('.')) {
                     secondNumber += value;
                     display.textContent = secondNumber;
                 }
             }
         } 
-        // Gérer la réinitialisation
+        // clear display
         else if (value === 'clear') {
             display.textContent = '';
             firstNumber = '';
             secondNumber = '';
             operator = '';
         } 
-        // Gérer le changement de signe
+        // manage negative number
         else if (value === 'sign') {
             if (operator === '') {
                 if (firstNumber !== '') {
@@ -79,7 +87,7 @@ buttons.forEach(button => {
                 display.textContent = secondNumber;
             }
         } 
-        // Gérer les opérateurs
+        // hundle operator
         else if (['+', '-', '*', '/'].includes(value)) {
             if (firstNumber !== '') {
                 operator = value;
