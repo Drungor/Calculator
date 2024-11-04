@@ -85,8 +85,15 @@ buttons.forEach(button => {
                 operator = value;
                 console.log('Operator set:', operator);
             }
+        } else if (value === '=') {
+            if (firstNumber !== '' && secondNumber !== '' && operator !== '') {
+                const result = operate(parseFloat(firstNumber), parseFloat(secondNumber), operator);
+                display.textContent = result;
+                firstNumber = result.toString();
+                secondNumber = '';
+                operator = '';
         } else {
-            console.log('Unrecognized input');
+            display.textContent = 'Error';
         }
     });
 });
